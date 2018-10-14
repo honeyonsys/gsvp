@@ -1,53 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="google-signin-scope" id="google-signin-scope" content="honeyonsys@gmail.com">
-    <meta name="google-signin-client_id" id="google-signin-client_id" content="744856426448-smuhvljvjt5t0i6dbrlge8nmn6rrv7s1.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <title>Street View Publish App | Publish all your 360 degree/panorama photos to your business location</title>
-    <script src="assets/jquery-3.2.1.min.js"></script>
-    <script src="assets/sammy.js"></script>
-    <!-- <script src="assets/bootstrap.min.js"></script> -->
-    <script src="constants.js"></script>
-    <script src="script.js"></script>
-    <script>
-    function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Street View Publish App | Publish all your 360 degree/panorama photos to your business location</title>
+<script src="assets/jquery-3.2.1.min.js"></script>
 
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
-    // initialize the application
-    var app = Sammy('#main', function() {
-    // include a plugin
-    this.use('Mustache');
-
-    // define a 'route'
-    this.get('#/', function() {
-        // load some data
-        this.load('posts.json')
-            // render a template
-            .renderEach('post.mustache')
-            // swap the DOM with the new content
-            .swap();
-    });
-    });
-
-    // start the application
-    app.run('#/');
-    </script>
-    <link rel="stylesheet" href="assets/style.css" />
+<!-- <script src="assets/bootstrap.min.js"></script> -->
+<script src="constants.js"></script>
+<script>
+jQuery(document).ready(function(){
+    // let authCode = localStorage.getItem('gAuthCode');
+    let params = (new URL(document.location)).searchParams;
+    // let authParams = { 
+    //     'response_type': 'code',
+    //     'client_id': app.gClientId,
+    //     'redirect_uri': app.appUrl,
+    //     'scope': 'https://www.googleapis.com/auth/streetviewpublish'
+    // }
+    let authParams = new Array('response_type=code', 'client_id=' + app.gClientId, 'redirect_uri=' + app.appUrl, 'scope=https://www.googleapis.com/auth/streetviewpublish')
+    if (!params.get('code')) {
+        // console.log(app.gAuthURL)
+        window.location = app.gAuthURL + '?' + authParams.join('&');
+    } else {
+        console.log(params.get('code'))
+    }
+})
+</script>
+<link rel="stylesheet" href="assets/style.css" />
 </head>
 <body id="main">
     <div class="container">
@@ -61,8 +42,7 @@
         
         
         <h1>App will publish here soon...</h1>
-        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+       
     </div>
-    
 </body>
 </html>
