@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
     //     'redirect_uri': app.appUrl,
     //     'scope': 'https://www.googleapis.com/auth/streetviewpublish'
     // }
-    let authParams = new Array('response_type=code', 'client_id=' + app.gClientId, 'redirect_uri=' + app.appUrl, 'scope=https://www.googleapis.com/auth/streetviewpublish')
+    let authParams = new Array('response_type=code', 'client_id=' + app.gClientId, 'redirect_uri=' + app.appUrl + 'index.html', 'scope=https://www.googleapis.com/auth/streetviewpublish')
     if (!params.get('code')) {
         // console.log(app.gAuthURL)
         window.location = app.gAuthURL + '?' + authParams.join('&');
